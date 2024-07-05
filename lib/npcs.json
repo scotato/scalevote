@@ -1,0 +1,112 @@
+[
+  {
+    "id": "blacksmith",
+    "name": "Blacksmith",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/blacksmith.png",
+    "locationId": "A3"
+  },
+  {
+    "id": "farmer",
+    "name": "Farmer",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/farmer.png",
+    "locationId": "B1"
+  },
+  {
+    "id": "elder",
+    "name": "Elder",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/elder.png",
+    "locationId": "C2"
+  },
+  {
+    "id": "climber",
+    "name": "Climber",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/climber.png",
+    "locationId": "C4"
+  },
+  {
+    "id": "bandit",
+    "name": "Bandit",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/bandit.png",
+    "locationId": "B4"
+  },
+  {
+    "id": "miner",
+    "name": "Miner",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/miner.png",
+    "locationId": "B3"
+  },
+  {
+    "id": "tinkerer",
+    "name": "Tinkerer",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/tinkerer.png",
+    "locationId": "A1"
+  },
+  {
+    "id": "villager",
+    "name": "Villager",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/villager.png",
+    "locationId": "C3"
+  },
+  {
+    "id": "clockwork",
+    "name": "Villager",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/clockwork.png",
+    "locationId": "B2"
+  },
+  {
+    "id": "queen",
+    "name": "Queen",
+    "bio": "",
+    "messages": {},
+    "inventory": [],
+    "coins": 0,
+    "type": "npc",
+    "image": "/queen.png",
+    "locationId": "A2"
+  }
+]
