@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
+import { DUMMY_PLAYER_COUNT } from "@/lib/constants";
 
-// mock data
-const DUMMY_PLAYER_COUNT = 10;
 const DUMMY_PLAYERS: User[] = Array.from(
   { length: DUMMY_PLAYER_COUNT },
   (_, i) => ({
     id: i,
     avatar: `https://api.dicebear.com/9.x/big-smile/svg?seed=${i}`,
-    size: Math.floor(Math.random() * 100) + 50,
+    size: Math.floor(Math.random() * 20) + 20,
+    side: i % 2 === 0 ? "left" : "right",
   })
 );
 

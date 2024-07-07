@@ -3,6 +3,7 @@ declare global {
     id: number;
     avatar: string;
     size: number;
+    side: "left" | "right";
   };
 
   type Player = User & {

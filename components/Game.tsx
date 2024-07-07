@@ -1,13 +1,25 @@
 import physics from "@/lib/physics";
+import {
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  PLATFORM_WIDTH,
+  PLATFORM_HEIGHT,
+} from "@/lib/constants";
+import Platform from "@/public/game/platform.svg";
+
 interface GameProps {
   players: User[];
 }
 
 export default function Game(props: GameProps) {
-  const { players, leftBalance } = physics(props.players);
+  const { players } = physics(props.players);
 
   return (
-    <svg width="100%" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="100%"
+      viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <defs>
         {players.map((user, index) => {
           const radius = user.body.circleRadius || 1;
@@ -37,28 +49,19 @@ export default function Game(props: GameProps) {
       </defs>
 
       <rect width="100%" height="100%" fill="white" />
-      <rect
-        x={leftBalance.ground.position.x - 405}
-        y={leftBalance.ground.position.y - 30}
-        width={810}
-        height={60}
-        fill="skyblue"
+
+      <Platform
+        x={22}
+        y={236}
+        // x={platform.position.x - PLATFORM_WIDTH / 2}
+        // y={platform.position.y - PLATFORM_HEIGHT / 1.225}
       />
-      <rect
-        x={leftBalance.leftWall.position.x - 5}
-        y={leftBalance.leftWall.position.y - 300}
-        width={10}
-        height={600}
-        fill="skyblue"
-        transform={`rotate(-22.5 ${leftBalance.leftWall.position.x} ${leftBalance.leftWall.position.y})`}
-      />
-      <rect
-        x={leftBalance.rightWall.position.x - 5}
-        y={leftBalance.rightWall.position.y - 300}
-        width={10}
-        height={600}
-        fill="skyblue"
-        transform={`rotate(22.5 ${leftBalance.rightWall.position.x} ${leftBalance.rightWall.position.y})`}
+
+      <Platform
+        x={412}
+        y={236}
+        // x={platform.position.x - PLATFORM_WIDTH / 2}
+        // y={platform.position.y - PLATFORM_HEIGHT / 1.225}
       />
 
       {players.map((user, index) => {
