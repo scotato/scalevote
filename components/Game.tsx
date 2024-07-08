@@ -1,12 +1,8 @@
 import physics from "@/lib/physics";
-import {
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
-  PLATFORM_WIDTH,
-  PLATFORM_HEIGHT,
-} from "@/lib/constants";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "@/lib/constants";
 import Platform from "@/public/game/platform.svg";
 import PlatformBase from "@/public/game/platform-base.svg";
+import PlatformDial from "@/public/game/platform-dial.svg";
 
 interface GameProps {
   players: User[];
@@ -16,6 +12,13 @@ export default function Game(props: GameProps) {
   const { players, leftPlatformOffset, rightPlatformOffset } = physics(
     props.players
   );
+  const offset =
+    leftPlatformOffset > rightPlatformOffset
+      ? leftPlatformOffset
+      : rightPlatformOffset;
+  const dialDirection = leftPlatformOffset > rightPlatformOffset ? -1 : 1;
+  const dialDegreeMax = 112.5;
+  const dialRotation = dialDirection * dialDegreeMax * (offset / 100);
 
   return (
     <svg
@@ -56,12 +59,13 @@ export default function Game(props: GameProps) {
       <Platform x={22} y={246 + leftPlatformOffset} />
       <Platform x={412} y={246 + rightPlatformOffset} />
 
-      <PlatformBase x={97} y={552} />
-      <PlatformBase x={487} y={552} />
+      <PlatformBase x={62} y={456} />
+      <g transform={`rotate(${dialRotation} 400 552)`}>
+        <PlatformDial x={304} y={456} />
+      </g>
 
       {players.map((user, index) => {
         const radius = user.body.circleRadius || 1;
-        const size = radius * 2;
 
         return (
           <>
