@@ -20,6 +20,19 @@ export default function Game(props: GameProps) {
   const dialDegreeMax = 112.5;
   const dialRotation = dialDirection * dialDegreeMax * (offset / 100);
 
+  const playersLeft = players.filter((player) => player.side === "left");
+  const playersRight = players.filter((player) => player.side === "right");
+  const playerCount = players.length;
+  const playerCountLeft = playersLeft.length;
+  const playerCountRight = playersRight.length;
+  const size = players.reduce((acc, player) => acc + player.size, 0);
+  const sizeLeft = playersLeft.reduce((acc, player) => acc + player.size, 0);
+  const sizeRight = playersRight.reduce((acc, player) => acc + player.size, 0);
+  const offsetLeft = sizeLeft - sizeRight;
+  const offsetRight = sizeRight - sizeLeft;
+  const offsetLeftText = offsetLeft > 0 ? `+${offsetLeft}` : offsetLeft;
+  const offsetRightText = offsetRight > 0 ? `+${offsetRight}` : offsetRight;
+
   return (
     <svg
       width="100%"
@@ -60,6 +73,28 @@ export default function Game(props: GameProps) {
       <Platform x={412} y={246 + rightPlatformOffset} />
 
       <PlatformBase x={62} y={456} />
+      {/* system ui rounded */}
+      <text
+        x={194 - textXOffset(offsetLeft)}
+        y={575}
+        fontFamily="system-ui, system-ui"
+        fontSize="32"
+        fontWeight={900}
+        fill="#D9D9D9"
+      >
+        {offsetLeftText}
+      </text>
+      <text
+        x={585 - textXOffset(offsetRight)}
+        y={575}
+        fontFamily="system-ui, system-ui"
+        fontSize="32"
+        fontWeight={900}
+        fill="#D9D9D9"
+      >
+        {offsetRightText}
+      </text>
+
       <g transform={`rotate(${dialRotation} 400 552)`}>
         <PlatformDial x={304} y={456} />
       </g>
@@ -87,4 +122,12 @@ export default function Game(props: GameProps) {
       })}
     </svg>
   );
+}
+
+function textXOffset(size: number) {
+  const sizeAbs = Math.abs(size);
+  if (sizeAbs === 0) return 0;
+  if (sizeAbs < 10) return 12;
+  if (sizeAbs < 100) return 24;
+  return 36;
 }
