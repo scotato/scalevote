@@ -4,6 +4,7 @@ declare global {
     avatar: string;
     size: number;
     side: "left" | "right";
+    color: string;
   };
 
   type Player = User & {

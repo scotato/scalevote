@@ -2,7 +2,6 @@ export const ENGINE_DURATION = 300;
 export const ENGINE_TIMESTEP = 1000 / 60; // 60 steps per second... i think
 export const CANVAS_WIDTH = 800;
 export const CANVAS_HEIGHT = 600;
-export const DUMMY_PLAYER_COUNT = 20;
 export const PLATFORM_WIDTH = 366;
 export const PLATFORM_HEIGHT = 128;
 export const PLATFORM_PATH =

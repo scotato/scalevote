@@ -6,13 +6,16 @@ import {
   PLATFORM_HEIGHT,
 } from "@/lib/constants";
 import Platform from "@/public/game/platform.svg";
+import PlatformBase from "@/public/game/platform-base.svg";
 
 interface GameProps {
   players: User[];
 }
 
 export default function Game(props: GameProps) {
-  const { players } = physics(props.players);
+  const { players, leftPlatformOffset, rightPlatformOffset } = physics(
+    props.players
+  );
 
   return (
     <svg
@@ -50,19 +53,11 @@ export default function Game(props: GameProps) {
 
       <rect width="100%" height="100%" fill="white" />
 
-      <Platform
-        x={22}
-        y={236}
-        // x={platform.position.x - PLATFORM_WIDTH / 2}
-        // y={platform.position.y - PLATFORM_HEIGHT / 1.225}
-      />
+      <Platform x={22} y={246 + leftPlatformOffset} />
+      <Platform x={412} y={246 + rightPlatformOffset} />
 
-      <Platform
-        x={412}
-        y={236}
-        // x={platform.position.x - PLATFORM_WIDTH / 2}
-        // y={platform.position.y - PLATFORM_HEIGHT / 1.225}
-      />
+      <PlatformBase x={97} y={552} />
+      <PlatformBase x={487} y={552} />
 
       {players.map((user, index) => {
         const radius = user.body.circleRadius || 1;
@@ -74,9 +69,7 @@ export default function Game(props: GameProps) {
               cx={user.body.position.x}
               cy={user.body.position.y}
               r={user.body.circleRadius}
-              fill={`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(
-                Math.random() * 255
-              )}, ${Math.floor(Math.random() * 255)})`}
+              fill={user.color}
               opacity="0.5"
             />
             <circle

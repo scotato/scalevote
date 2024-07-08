@@ -11,8 +11,10 @@ import {
   PLATFORM_PATH,
 } from "./constants";
 
-const LEFT_CENTER = CANVAS_WIDTH / 4;
-const RIGHT_CENTER = (3 * CANVAS_WIDTH) / 4;
+const LEFT_CENTER = 206;
+const RIGHT_CENTER = 596;
+const PLATFORM_DEFAULT_HEIGHT = 300;
+const PLATFORM_MAX_OFFSET = 100;
 
 // provide concave decomposition support library
 Common.setDecomp(require("poly-decomp"));
@@ -22,16 +24,24 @@ const physics = (users: User[]) => {
   const world = engine.world;
 
   const ground = Bodies.rectangle(400, 599, 800, 1, { isStatic: true });
-  const leftWall = Bodies.rectangle(20, 300, 1, 600, { isStatic: true });
+  const leftWall = Bodies.rectangle(0, 300, 1, 600, { isStatic: true });
   const centerWall = Bodies.rectangle(400, 300, 1, 600, { isStatic: true });
-  const rightWall = Bodies.rectangle(780, 300, 1, 600, { isStatic: true });
+  const rightWall = Bodies.rectangle(799, 300, 1, 600, { isStatic: true });
 
   const leftPlatform = createPlatform();
   const rightPlatform = createPlatform();
 
+  const { offsetLeft, offsetRight } = calculateOffset(users);
+
   // move the composite to a new position
-  moveComposite(leftPlatform, { x: 206, y: 290 });
-  moveComposite(rightPlatform, { x: 596, y: 290 });
+  moveComposite(leftPlatform, {
+    x: LEFT_CENTER,
+    y: PLATFORM_DEFAULT_HEIGHT + offsetLeft,
+  });
+  moveComposite(rightPlatform, {
+    x: RIGHT_CENTER,
+    y: PLATFORM_DEFAULT_HEIGHT + offsetRight,
+  });
 
   Composite.add(world, [ground, leftWall, centerWall, rightWall]);
   Composite.add(world, [leftPlatform, rightPlatform]);
@@ -56,6 +66,8 @@ const physics = (users: User[]) => {
     world,
     leftPlatform,
     rightPlatform,
+    leftPlatformOffset: offsetLeft,
+    rightPlatformOffset: offsetRight,
   };
 };
 
@@ -105,6 +117,28 @@ const moveComposite = (composite: Composite, newPosition: Vector) => {
   const delta = Vector.sub(newPosition, centroid);
   Composite.translate(composite, delta);
 };
+
+export function calculateOffset(users: User[]) {
+  const leftSidePlayers = users.filter((user) => user.side === "left");
+  const rightSidePlayers = users.filter((user) => user.side === "right");
+  const leftWeight = leftSidePlayers.reduce(
+    (acc, player) => acc + player.size,
+    0
+  );
+  const rightWeight = rightSidePlayers.reduce(
+    (acc, player) => acc + player.size,
+    0
+  );
+  const weightDifference = leftWeight - rightWeight;
+
+  const offsetLeft = Math.min(
+    Math.max(weightDifference, -PLATFORM_MAX_OFFSET),
+    PLATFORM_MAX_OFFSET
+  );
+  const offsetRight = -offsetLeft;
+
+  return { offsetLeft, offsetRight };
+}
 
 export default physics;
 
