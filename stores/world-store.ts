@@ -37,7 +37,8 @@ function createMockUser(id: number, side?: "left" | "right") {
   return {
     id,
     avatar: `https://api.dicebear.com/9.x/big-smile/svg?seed=${id}`,
-    size: Math.floor(Math.random() * 20) + 20,
+    // size: Math.floor(Math.random() * 20) + 20,
+    size: 1,
     side: side || (id % 2 === 0 ? "left" : "right"),
     color: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(
       Math.random() * 255

@@ -15,6 +15,7 @@ const LEFT_CENTER = 206;
 const RIGHT_CENTER = 596;
 const PLATFORM_DEFAULT_HEIGHT = 300;
 const PLATFORM_MAX_OFFSET = 100;
+const SIZE_MULTIPLIER = 32;
 
 // provide concave decomposition support library
 Common.setDecomp(require("poly-decomp"));
@@ -50,7 +51,7 @@ const physics = (users: User[]) => {
     const x = user.side === "left" ? LEFT_CENTER + i : RIGHT_CENTER + i;
     return {
       ...user,
-      body: Bodies.circle(x, 0, user.size),
+      body: Bodies.circle(x, 0, user.size * SIZE_MULTIPLIER),
     };
   });
 
@@ -122,11 +123,11 @@ export function calculateOffset(users: User[]) {
   const leftSidePlayers = users.filter((user) => user.side === "left");
   const rightSidePlayers = users.filter((user) => user.side === "right");
   const leftWeight = leftSidePlayers.reduce(
-    (acc, player) => acc + player.size,
+    (acc, player) => acc + player.size * SIZE_MULTIPLIER,
     0
   );
   const rightWeight = rightSidePlayers.reduce(
-    (acc, player) => acc + player.size,
+    (acc, player) => acc + player.size * SIZE_MULTIPLIER,
     0
   );
   const weightDifference = leftWeight - rightWeight;
