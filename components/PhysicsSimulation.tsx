@@ -13,8 +13,8 @@ const PhysicsSimulation: React.FC = () => {
       },
       body: JSON.stringify({ players }),
     })
-      .then((response) => response.text())
-      .then((data) => setSvgContent(data));
+      .then((response) => response.json())
+      .then((data) => setSvgContent(data.svg));
   }, [players]);
 
   return (
